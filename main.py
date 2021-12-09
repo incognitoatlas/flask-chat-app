@@ -32,7 +32,7 @@ def append_item(item):
     # db['messages'].append(censored)
     return 'True'
   else:
-    # db['messages'].append(item)
+    return ''# db['messages'].append(item)
   return 'True'
 
 @app.route('/user/<_bool>')
