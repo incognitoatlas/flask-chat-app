@@ -11,6 +11,8 @@ beautifulsoup4 = "^4.10.0"
 replit = "^3.2.4"
 react = "^4.3.0"
 Flask-Babel = "^2.0.0"
+Flask-Cors = "^3.0.10"
+better-profanity = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 

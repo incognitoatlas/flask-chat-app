@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    {% block script %}{% endblock %}
+  </body>
+</html>
