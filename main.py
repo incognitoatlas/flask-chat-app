@@ -49,8 +49,8 @@ def user_index(_bool):
 @app.route('/fetch_msg')
 def return_messages():
   return {
-    'result': list(# db['messages']),
-    'users_active': int(# db['users'])
+    'result': 0#list(db['messages']),
+    'users_active': 0#int(db['users'])
   }
 
 app.run(host='0.0.0.0', port=8080)
