@@ -55,7 +55,6 @@ def user_index(_bool):
 
 @app.route('/fetch_msg')
 def return_messages():
-  print(db.get('messages'))
   return {
     'result': db.get('messages'),
     'users_active': int(db.get('users'))
