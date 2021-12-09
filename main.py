@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request
-from replit import db
 from flask_cors import CORS
 import logging
+import os
 from better_profanity import profanity
-
+import pickledb
+db = pickledb.load('chat.db', False)
 app = Flask('app')
 CORS(app)
-# db['users'] = 0
-# db['messages'] = []
+
+db.set('users', 0)
+db.set('messages', [])
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -18,6 +20,7 @@ def web_index():
     return render_template('index.html')
   else:
     msg_form = request.form['msg_content']
+    db.set('messages', db.get('messages').append(msg_form))
     # db['messages'].append(msg_form)
     return render_template('index.html')
       
@@ -25,32 +28,37 @@ def web_index():
 def append_item(item):
   if item.startswith("!"):
     if item == '!clear':
-      # db['messages'] = []
+      db.set('messages', [])
       return 'True'
   if profanity.contains_profanity(item):
     censored = profanity.censor(item)
-    # db['messages'].append(censored)
+    _newlist = list(db.get('messages'))
+    _newlist.append(censored)
+    db.set('messages', _newlist)
     return 'True'
   else:
-    return 'True'# db['messages'].append(item)
+    _newlist = list(db.get('messages'))
+    _newlist.append(item)
+    db.set('messages', _newlist)
   return 'True'
 
 @app.route('/user/<_bool>')
 def user_index(_bool):
   if _bool == 'add':
-    # db['users'] += 1
+    db.set('users', int(db.get('users'))+1)
     return ''
   elif _bool == 'sub':
-    # db['users'] -= 1
+    db.set('users', int(db.get('users'))-1)
     return ''
   else:
     return ''
 
 @app.route('/fetch_msg')
 def return_messages():
+  print(db.get('messages'))
   return {
-    'result': 0,#list(db['messages']),
-    'users_active': 0#int(db['users'])
+    'result': db.get('messages'),
+    'users_active': int(db.get('users'))
   }
 
-app.run(host='0.0.0.0', port=8080)
+app.run(host='0.0.0.0', port=os.getenv('PORT'))
