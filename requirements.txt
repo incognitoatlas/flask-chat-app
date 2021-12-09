@@ -66,6 +66,7 @@ packaging
 parso
 pastel
 pexpect
+pickledb
 Pillow
 pipreqs
 pipreqs-amasad
