@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from replit import # db
+from replit import db
 from flask_cors import CORS
 import logging
 from better_profanity import profanity
