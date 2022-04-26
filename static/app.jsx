@@ -30,7 +30,7 @@ class App extends React.Component {
 
   fetch_messages() {
     var messageList;
-    fetch(`https://chat.cortemic.repl.co/fetch_msg`)
+    fetch(`${window.location.href}/fetch_msg`)
       .then(response => response.json())
       .then(data => {
         this.setState({users: data.users_active});
@@ -46,7 +46,7 @@ class App extends React.Component {
   handleForm() {
     if (this.state.input != '') {
       if (this.state.input.startsWith('!')) {
-        fetch(`https://chat.cortemic.repl.co/append/${this.state.input}`)
+        fetch(`${window.location.href}/append/${this.state.input}`)
         .then(response => response.json());
       } else {
         let merged = this.state.name + ': ' + this.state.input
@@ -61,7 +61,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('https://chat.cortemic.repl.co/user/add');
+    fetch(`${window.location.href}/user/add`);
     window.addEventListener("beforeunload", (ev) => {
       ev.preventDefault();
       return this.unload();
@@ -71,7 +71,7 @@ class App extends React.Component {
   }
 
   unload() {
-    fetch('https://chat.cortemic.repl.co/user/sub');
+    fetch(`${window.location.href}/user/sub`);
   }
   
 
@@ -82,7 +82,7 @@ class App extends React.Component {
       fetch(`https://chat.cortemic.repl.co/append/${this.state.input}`);
     } else {
     let merged = this.state.name + ': ' + this.state.input
-    fetch(`https://chat.cortemic.repl.co/append/${merged}`);
+    fetch(`${window.location.href}/append/${merged}`);
     }
     document.getElementById('msginput').value = '';
   }
